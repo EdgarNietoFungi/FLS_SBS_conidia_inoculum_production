@@ -1,0 +1,117 @@
+﻿ID,Fungi,condition,repeat,Revived,revive
+24,FLS,fridge,1,Y,1
+24,FLS,fridge,2,Y,1
+32,FLS,fridge,1,Y,1
+32,FLS,fridge,2,Y,1
+77,FLS,fridge,1,Y,1
+77,FLS,fridge,2,Y,1
+86,FLS,fridge,1,Y,1
+86,FLS,fridge,2,Y,1
+87,FLS,fridge,1,Y,1
+87,FLS,fridge,2,Y,1
+88,FLS,fridge,1,N,0
+88,FLS,fridge,2,Y,1
+92,FLS,fridge,1,N,0
+92,FLS,fridge,2,N,0
+97,FLS,fridge,1,N,0
+97,FLS,fridge,2,N,0
+98,FLS,fridge,1,Y,1
+98,FLS,fridge,2,Y,1
+99,FLS,fridge,1,N,0
+99,FLS,fridge,2,Y,1
+201,FLS,fridge,1,Y,1
+201,FLS,fridge,2,N,0
+2,SBS,fridge,1,Y,1
+2,SBS,fridge,2,Y,1
+5,SBS,fridge,1,Y,1
+5,SBS,fridge,2,Y,1
+6,SBS,fridge,1,N,0
+6,SBS,fridge,2,Y,1
+8,SBS,fridge,1,Y,1
+8,SBS,fridge,2,Y,1
+9,SBS,fridge,1,Y,1
+9,SBS,fridge,2,N,0
+10,SBS,fridge,1,Y,1
+10,SBS,fridge,2,Y,1
+11,SBS,fridge,1,N,0
+11,SBS,fridge,2,Y,1
+12,SBS,fridge,1,N,0
+12,SBS,fridge,2,N,0
+22,SBS,fridge,1,N,0
+22,SBS,fridge,2,N,0
+24,SBS,fridge,1,N,0
+24,SBS,fridge,2,Y,1
+33,SBS,fridge,1,N,0
+33,SBS,fridge,2,N,0
+35,SBS,fridge,1,N,0
+35,SBS,fridge,2,N,0
+38,SBS,fridge,1,N,0
+38,SBS,fridge,2,N,0
+39,SBS,fridge,1,Y,1
+39,SBS,fridge,2,Y,1
+46,SBS,fridge,1,Y,1
+46,SBS,fridge,2,N,0
+47,SBS,fridge,1,Y,1
+47,SBS,fridge,2,N,0
+49,SBS,fridge,1,N,0
+49,SBS,fridge,2,N,0
+50,SBS,fridge,1,N,0
+50,SBS,fridge,2,N,0
+24,FLS,ultrafrezzer ,1,Y,1
+24,FLS,ultrafrezzer ,2,Y,1
+32,FLS,ultrafrezzer ,1,Y,1
+32,FLS,ultrafrezzer ,2,Y,1
+77,FLS,ultrafrezzer ,1,Y,1
+77,FLS,ultrafrezzer ,2,Y,1
+86,FLS,ultrafrezzer ,1,Y,1
+86,FLS,ultrafrezzer ,2,Y,1
+87,FLS,ultrafrezzer ,1,Y,1
+87,FLS,ultrafrezzer ,2,Y,1
+88,FLS,ultrafrezzer ,1,,
+88,FLS,ultrafrezzer ,2,,
+92,FLS,ultrafrezzer ,1,N,0
+92,FLS,ultrafrezzer ,2,N,0
+97,FLS,ultrafrezzer ,1,N,0
+97,FLS,ultrafrezzer ,2,N,0
+98,FLS,ultrafrezzer ,1,Y,1
+98,FLS,ultrafrezzer ,2,Y,1
+99,FLS,ultrafrezzer ,1,Y,1
+99,FLS,ultrafrezzer ,2,N,0
+201,FLS,ultrafrezzer ,1,Y,1
+201,SBS,ultrafrezzer ,2,Y,1
+2,SBS,ultrafrezzer ,1,Y,1
+2,SBS,ultrafrezzer ,2,Y,1
+5,SBS,ultrafrezzer ,1,Y,1
+5,SBS,ultrafrezzer ,2,Y,1
+6,SBS,ultrafrezzer ,1,Y,1
+6,SBS,ultrafrezzer ,2,Y,1
+8,SBS,ultrafrezzer ,1,Y,1
+8,SBS,ultrafrezzer ,2,Y,1
+9,SBS,ultrafrezzer ,1,Y,1
+9,SBS,ultrafrezzer ,2,Y,1
+10,SBS,ultrafrezzer ,1,Y,1
+10,SBS,ultrafrezzer ,2,Y,1
+11,SBS,ultrafrezzer ,1,Y,1
+11,SBS,ultrafrezzer ,2,Y,1
+12,SBS,ultrafrezzer ,1,N,0
+12,SBS,ultrafrezzer ,2,N,0
+22,SBS,ultrafrezzer ,1,Y,1
+22,SBS,ultrafrezzer ,2,N,0
+24,SBS,ultrafrezzer ,1,Y,1
+24,SBS,ultrafrezzer ,2,Y,1
+33,SBS,ultrafrezzer ,1,N,0
+33,SBS,ultrafrezzer ,2,N,0
+35,SBS,ultrafrezzer ,1,Y,1
+35,SBS,ultrafrezzer ,2,N,0
+38,SBS,ultrafrezzer ,1,N,0
+38,SBS,ultrafrezzer ,2,N,0
+39,SBS,ultrafrezzer ,1,Y,1
+39,SBS,ultrafrezzer ,2,Y,1
+46,SBS,ultrafrezzer ,1,Y,1
+46,SBS,ultrafrezzer ,2,Y,1
+47,SBS,ultrafrezzer ,1,N,0
+47,SBS,ultrafrezzer ,2,N,0
+49,SBS,ultrafrezzer ,1,N,0
+49,SBS,ultrafrezzer ,2,N,0
+50,SBS,ultrafrezzer ,1,N,0
+50,SBS,ultrafrezzer ,2,N,0
