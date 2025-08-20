@@ -270,8 +270,7 @@ kruskal.2 <- flextable::flextable(kruskal%>% mutate(p.value =
 
 flextable::save_as_docx(kruskal.2, path = "nice_table_kruskal_subtratum_treatment.docx")
 
-#Dunn test
-#by treatment 
+#Dunn test by treatment 
 test_dunn <- dunn.test(substratum.inoculum.4$growth_14days , as.factor(substratum.inoculum.4$treatment),method = 'bonferroni')
 x <- test_dunn$comparisons
 y <- test_dunn$P.adjusted
@@ -298,9 +297,6 @@ means.treatment <- flextable(substratum.inoculum.3.alternative %>% group_by(trea
                                arrange(desc(mean)) %>% 
                                mutate_if(is.numeric, round, 2))
 flextable::save_as_docx(means.treatment, path = "means.treatment.docx")
-
-
-
 
 #Graph by treatment 
 View(stat.test.subs <- substratum.inoculum.4%>% dunn_test(growth_14days ~ treatment, p.adjust.method = "bonferroni"))
