@@ -371,3 +371,17 @@ ggboxplot(media.fls.5,
   ) + scale_y_continuous(limits = c(0, 200)) +    labs(y = "average_conidia_per_square(mm2)_hemocytometer") # Rename the y-axis
 +    labs(y = expression (bold("average_conidia_per_mm"^2*"_hemocytometer"))) # Rename the y-axis
 
+
+
+##
+
+model1 <- aov(media.fls.3$average_conidia_per_square_hemocytometer~media.fls.3$media*media.fls.3$condition,media.fls.3)
+summary.aov(model1)
+model2 <-  aov(media.fls.3$average_conidia_per_square_hemocytometer~media.fls.3$media+media.fls.3$condition,media.fls.3)
+summary.aov(model2)
+
+residuals1 <- residuals(model1)
+shapiro.test(residuals1)
+levene_test(media.fls.3$average_conidia_per_square_hemocytometer~media.fls.3$media*media.fls.3$condition,media.fls.3)
+residuals2 <- residuals(model2)
+shapiro.test(residuals2)

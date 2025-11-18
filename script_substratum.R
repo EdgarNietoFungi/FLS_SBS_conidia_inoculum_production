@@ -12,6 +12,8 @@ library(dunn.test)
 library(cmstatr)
 library(flextable)
 library(dunn.test)
+library(read_)
+library(officer)
 #library(plyr)
 
 
@@ -25,12 +27,13 @@ substratum.inoculum.2 <-
     substratum = as.factor(substratum),
     condition = as.factor(condition)
   ) %>% rename("growth_14days"=growth...6) %>% 
-  rename("growth_30days"=growth...8) %>%  
+  rename("growth_30days"=growth...8) %>% 
+  mutate(pathogen = fct_recode(pathogen, "Csojina" = "FLS", "Sglycines" = "SBS"))%>%
   group_by(ID, pathogen, condition, substratum) %>% 
   mutate(ind = sum(is.na(growth_14days))) %>%
   ungroup() %>% 
     filter(!ind>= 4)%>%
-  select(-ind) %>%  ungroup()
+  dplyr::select(-ind) %>%  ungroup()
 
 #CREATING OBJECTS
 # object "substratum.inoculum.3" removing SBS_rice_suspension since CV is high and renaming levels of condition (plug or conidia)
@@ -304,28 +307,46 @@ stat.test.subs <- stat.test.subs%>% add_xy_position(x = "treatment", step.increa
 View(stat.test.subs)
 
 #Plot for publication
-ggboxplot(substratum.inoculum.4, x = "treatment", y = "growth_14days", fill = "treatment") +
-  stat_pvalue_manual(stat.test.subs, hide.ns = FALSE)+ theme(
-  panel.border = element_rect(
-    colour = "black",
-    fill = NA,
-    size = 1
-  ),
-  axis.title = element_text(size = 18, face = "bold", hjust = 0.5),
-  axis.text.x = element_text(
+A <- ggboxplot(substratum.inoculum.4,
+          x = "treatment",
+          y = "growth_14days",
+          fill = "treatment") +
+  stat_pvalue_manual(stat.test.subs, hide.ns = FALSE,inherit.aes = F) + theme(
+    panel.border = element_rect(
+      colour = "black",
+      fill = NA,
+      size = 1
+    ),
+    axis.title = element_text(size = 18, face = "bold", hjust = 0.5),
+    axis.text.x = element_text(
+      face = "bold",
+      size = 11,
+      family = "Arial",
+      angle = 15,
+      hjust = 1
+    ),
+    axis.text.y = element_text(
+      face = "bold",
+      size = 15,
+      family = "Arial"
+    ),
+    panel.background = element_rect(fill = "white", colour = "grey50"),
+    legend.text = element_text(size = 15),
+    legend.title = element_text(size = 15)
+  ) + theme(legend.position = "none") + scale_y_continuous(breaks = c(0, 25, 50,75,100)) + labs(x = "Treatment", y = "Growth at 14 DAI (%)") + labs(tag = "A") +     theme(plot.tag = element_text(
     face = "bold",
-    size = 15,
     family = "Arial",
-    angle = 15,
-    hjust = 1
-  ),
-  axis.text.y = element_text(
-    face = "bold",
-    size = 15,
-    family = "Arial"
-  ),
-  panel.background = element_rect(fill = "white", colour = "grey50"), legend.text = element_text(size = 15), legend.title = element_text(size = 15)
-) 
+    size = 20
+  ))
 
 # +    labs(y = "growth_28days") # Rename the y-axis
 
+# hola <- ggarrange(A,B, ncol = 1,  align = "v", widths = 1, heights = 1)
+# hola
+# ggsave("holamean.png", width = 8.24, height = 5.07, units = "in", dpi = 400)
+# 
+# 
+# doc_png <- read_docx()
+# doc_png <- body_add_img(doc_png, "holamean.png", width = 6.53, height = 4.017)
+# 
+# 
