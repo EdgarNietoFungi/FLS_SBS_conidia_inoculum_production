@@ -24,7 +24,7 @@ substratum.inoculum.2 <-
     condition = as.factor(condition)
   ) %>% rename("growth_14days"=growth...6) %>% 
   rename("growth_30days"=growth...8) %>%
-  mutate(pathogen = fct_recode(pathogen, "Csojina" = "FLS", "Sglycines" = "SBS")) %>% 
+  mutate(pathogen = fct_recode(pathogen, "C. sojina" = "FLS", "S. glycines" = "SBS")) %>% 
   group_by(ID, pathogen, condition, substratum) %>% 
   mutate(ind = sum(is.na(growth_30days))) %>%
   ungroup() %>% 
@@ -34,8 +34,7 @@ substratum.inoculum.2 <-
 #CREATING OBJECTS
 # object "substratum.inoculum.3" removing SBS_rice_suspension since CV is high and renaming levels of condition (plug or conidia)
 
-substratum.inoculum.3 <- substratum.inoculum.2%>% filter(condition!="suspension"| pathogen !="SBS"| substratum !="rice")
-
+substratum.inoculum.3 <- substratum.inoculum.2 #%>% #%>% filter(condition!="suspension"| pathogen !="Sglycines"| substratum !="rice")
 # object "substratum.inoculum.3" alternative; to use further in the script
 substratum.inoculum.3.alternative <- substratum.inoculum.2 %>% filter(condition=="suspension") %>% 
   mutate(condition = fct_recode(condition, "susp" = "suspension")) %>%
@@ -146,6 +145,8 @@ kruskal.condition <- tidy(kruskal.test(substratum.inoculum.3$growth_30days  ~ as
 kruskal.condition.2 <- flextable::flextable(kruskal.condition %>% mutate(p.value =
                                                                                      as.character(signif(p.value, digits =2))) %>%  mutate(p.value = sub("e", "10^", p.value)) %>%  mutate_if(is.numeric, round, 2))
 
+
+kruskal.condition.2
 flextable::save_as_docx(kruskal.condition.2, path = "nice_table_kruskal_subst_condition.docx")
 
 ###means condition (plug or  conidia)
@@ -184,6 +185,7 @@ kruskal.media <- tidy(kruskal.test(substratum.inoculum.3$growth_30days  ~ as.fac
 kruskal.media.2 <- flextable::flextable(kruskal.media %>% mutate(p.value =
                                                                              as.character(signif(p.value, digits =2))) %>%  mutate(p.value = sub("e", "10^", p.value)) %>%  mutate_if(is.numeric, round, 2))
 
+kruskal.media.2
 flextable::save_as_docx(kruskal.media.2, path = "nice_table_kruskal_subst_media.docx")
 
 ###means substratum aka known as "media" to avoid confusions with the original name of the object (sorghum, millet or rice)
@@ -211,6 +213,7 @@ spain.2 <- spain%>%  mutate(P.adjusted =
   mutate(Z =                 as.character(signif(Z, digits =2)))
 
 spain.3 <- flextable::flextable(spain.2)
+spain.3
 flextable::save_as_docx(spain.3, path = "nice_table_test_dunn_substratum_media.docx")
 
 #testing pathogen (FLS or SBS)
@@ -219,6 +222,7 @@ kruskal.pathogen <- tidy(kruskal.test(substratum.inoculum.3$growth_30days  ~ as.
 kruskal.pathogen.2 <- flextable::flextable(kruskal.pathogen %>% mutate(p.value =
                                                                                    as.character(signif(p.value, digits =2))) %>%  mutate(p.value = sub("e", "10^", p.value)) %>%  mutate_if(is.numeric, round, 2))
 
+kruskal.pathogen.2
 flextable::save_as_docx(kruskal.pathogen.2, path = "nice_table_kruskal_subst_pathogen.docx")
 
 ###means pathogen (FLS or SBS)
@@ -265,6 +269,7 @@ kruskal <- tidy(kruskal.test(substratum.inoculum.4$growth_30days   ~ as.factor( 
 kruskal.2 <- flextable::flextable(kruskal%>% mutate(p.value =
                                                       as.character(signif(p.value, digits =2))) %>%  mutate(p.value = sub("e", "10^", p.value)) %>%  mutate_if(is.numeric, round, 2))
 
+kruskal.2
 flextable::save_as_docx(kruskal.2, path = "nice_table_kruskal_subtratum_treatment.docx")
 
 #Dunn test by treatment 

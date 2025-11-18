@@ -9,6 +9,10 @@ library(rstatix)
 library(flextable)
 library(raster)
 library(cmstatr)
+library(MASS)
+library(emmeans)
+library(multcomp)
+#library(emmGrid)
 media.fls <- read_csv("data/data_entry_evaluation_FLS_sporulation_media_light copy.csv") 
 
 #function removing outliers
@@ -36,7 +40,7 @@ media.fls.2 <-
     `spores  lower square 1`,
     `spores lower square 2`,
     `spores lower square  3`,
-    `spores lower square  4`))) %>% select(ID,experimental_replicate, media, condition, average_conidia_per_square_hemocytometer )
+    `spores lower square  4`))) %>% dplyr::select(ID,experimental_replicate, media, condition, average_conidia_per_square_hemocytometer )
 
 # good plot by media (DV8,DV8 filter paper, PDA,PGM,and SSLB) and by light regime (light, light-dark)
 ggplot(data = media.fls.2,
@@ -92,6 +96,14 @@ means.condition <- flextable(media.fls.3 %>% group_by(condition) %>%
                                arrange(desc(mean)) %>% 
                                mutate_if(is.numeric, round, 2))
 flextable::save_as_docx(means.condition, path = "means.condition.docx")
+
+means.media <- flextable(media.fls.3 %>% group_by(media) %>% 
+                               summarize(mean = mean(average_conidia_per_square_hemocytometer, na.rm=TRUE), sd = sd(average_conidia_per_square_hemocytometer, na.rm=TRUE), n = n(),
+                                         se = sd / sqrt(n), cv= cv (average_conidia_per_square_hemocytometer))%>%
+                               arrange(desc(mean)) %>% 
+                               mutate_if(is.numeric, round, 2))
+flextable::save_as_docx(means.media, path = "means.media_fls3.docx")
+
 
 #reduce/change shortly the name of  each levels and created a new column named "Treatment"from concatenating: "media, and condition" levels
 media.fls.4 <- media.fls.3  %>% 
@@ -369,7 +381,7 @@ ggboxplot(media.fls.5,
     ),
     panel.background = element_rect(fill = "white", colour = "grey50"), legend.text = element_text(size = 15), legend.title = element_text(size = 15)
   ) + scale_y_continuous(limits = c(0, 200)) +    labs(y = "average_conidia_per_square(mm2)_hemocytometer") # Rename the y-axis
-+    labs(y = expression (bold("average_conidia_per_mm"^2*"_hemocytometer"))) # Rename the y-axis
+#+    labs(y = expression (bold("average_conidia_per_mm"^2*"_hemocytometer"))) # Rename the y-axis
 
 
 
@@ -380,8 +392,66 @@ summary.aov(model1)
 model2 <-  aov(media.fls.3$average_conidia_per_square_hemocytometer~media.fls.3$media+media.fls.3$condition,media.fls.3)
 summary.aov(model2)
 
+#no normal distribution
 residuals1 <- residuals(model1)
 shapiro.test(residuals1)
 levene_test(media.fls.3$average_conidia_per_square_hemocytometer~media.fls.3$media*media.fls.3$condition,media.fls.3)
 residuals2 <- residuals(model2)
 shapiro.test(residuals2)
+
+
+#model1.GLM <- glm(average_conidia_per_square_hemocytometer ~ media * condition, family = poisson(link = "log"), data = media.fls.3)
+summary(model1.GLM)
+
+model1.GLM <- glm(average_conidia_per_square_hemocytometer ~ media * condition, family = negative.binomial(theta = 1), data = media.fls.3)
+#Checking deviance residauls
+qqnorm(residuals(model1.GLM, type = "deviance"))
+qqline(residuals(model1.GLM, type = "deviance"), col = "red")
+
+#Checking Overdispersion
+
+# Check for overdispersion
+# A ratio much greater than 1 suggests overdispersion, no overdisperosion
+print(model1.GLM$deviance / model1.GLM$df.residual) 
+
+anova_model1.GLM <- aov(average_conidia_per_square_hemocytometer ~ media * condition, data = media.fls.3)
+Anova(model1.GLM, type = "III") # Or type = "II" depending on your needs
+# Summarize the ANOVA results
+summary(anova_model1.GLM)
+# Perform Tukey's HSD test
+tukey_results <- TukeyHSD(anova_model1.GLM)
+# Print the results
+print(tukey_results)
+
+
+
+post_hoc_results <- emmeans(anova_model1.GLM, pairwise ~ media * condition, adjust = "tukey")
+
+# View the results
+summary(post_hoc_results)
+
+
+# Get EMMs on the default log scale
+emm_log_scale <- emmeans(model1.GLM, ~ media * condition)
+
+
+# Get EMMs on the original response (count) scale
+emm_response_scale <- emmeans(model1.GLM, ~ media * condition, type = "response")
+#emmeans(model1.GLM, specs = ~ media * condition)
+#Snippe5
+cld_output <- cld(emm_response_scale, Letters = LETTERS, alpha = 0.05, 
+                  adjust = "Tukey", # Adjust p-values (Tukey is default for pairwise)
+                  # Use capital letters
+                  sort = TRUE,reversed = T)
+print(cld_output)
+
+cld_output.2 <- flextable::flextable(cld_output)
+flextable::save_as_docx(cld_output.2, path = "pairwise_least_squares_means_tukey.docx")
+
+#Plot of interactions
+#Visualize the interaction
+emmip(model1.GLM, media ~condition) +
+  geom_point() +
+  geom_line(aes(group = media)) +
+  labs(y = "Expected Breaks (Response Scale)") +
+  theme_minimal()

@@ -28,7 +28,7 @@ substratum.inoculum.2 <-
     condition = as.factor(condition)
   ) %>% rename("growth_14days"=growth...6) %>% 
   rename("growth_30days"=growth...8) %>% 
-  mutate(pathogen = fct_recode(pathogen, "Csojina" = "FLS", "Sglycines" = "SBS"))%>%
+  mutate(pathogen = fct_recode(pathogen, "C. sojina" = "FLS", "S. glycines" = "SBS"))%>%
   group_by(ID, pathogen, condition, substratum) %>% 
   mutate(ind = sum(is.na(growth_14days))) %>%
   ungroup() %>% 
@@ -36,9 +36,9 @@ substratum.inoculum.2 <-
   dplyr::select(-ind) %>%  ungroup()
 
 #CREATING OBJECTS
-# object "substratum.inoculum.3" removing SBS_rice_suspension since CV is high and renaming levels of condition (plug or conidia)
+# object "substratum.inoculum.3" NO removing SBS_rice_suspension since CV is high and renaming levels of condition (plug or conidia)
 
-substratum.inoculum.3 <- substratum.inoculum.2%>% filter(condition!="suspension"| pathogen !="SBS"| substratum !="rice")
+substratum.inoculum.3 <- substratum.inoculum.2 #%>% filter(condition!="suspension"| pathogen !="Sglycines"| substratum !="rice")
 
 # object "substratum.inoculum.3" alternative; to use further in the script
 substratum.inoculum.3.alternative <- substratum.inoculum.2 %>% filter(condition=="suspension") %>% 
@@ -319,7 +319,7 @@ A <- ggboxplot(substratum.inoculum.4,
     ),
     axis.title = element_text(size = 18, face = "bold", hjust = 0.5),
     axis.text.x = element_text(
-      face = "bold",
+      face = "bold.italic",
       size = 11,
       family = "Arial",
       angle = 15,
@@ -338,7 +338,7 @@ A <- ggboxplot(substratum.inoculum.4,
     family = "Arial",
     size = 20
   ))
-
+A
 # +    labs(y = "growth_28days") # Rename the y-axis
 
 # hola <- ggarrange(A,B, ncol = 1,  align = "v", widths = 1, heights = 1)
