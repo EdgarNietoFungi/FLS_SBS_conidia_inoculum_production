@@ -443,6 +443,7 @@ cld_output <- cld(emm_response_scale, Letters = LETTERS, alpha = 0.05,
                   adjust = "Tukey", # Adjust p-values (Tukey is default for pairwise)
                   # Use capital letters
                   sort = TRUE,reversed = T)
+summary(cld_output)
 print(cld_output)
 
 cld_output.2 <- flextable::flextable(cld_output)

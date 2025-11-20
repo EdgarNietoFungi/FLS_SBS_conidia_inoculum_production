@@ -12,7 +12,7 @@ library(dunn.test)
 library(cmstatr)
 library(flextable)
 library(dunn.test)
-library(read_)
+library(read)
 library(officer)
 #library(plyr)
 
