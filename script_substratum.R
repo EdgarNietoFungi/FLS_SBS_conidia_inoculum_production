@@ -12,7 +12,7 @@ library(dunn.test)
 library(cmstatr)
 library(flextable)
 library(dunn.test)
-library(read)
+#library(read)
 library(officer)
 #library(plyr)
 
@@ -154,7 +154,7 @@ kruskal.condition <- tidy(kruskal.test(substratum.inoculum.3$growth_14days  ~ as
 kruskal.condition.2 <- flextable::flextable(kruskal.condition %>% mutate(p.value =
                                                                            as.character(signif(p.value, digits =2))) %>%  mutate(p.value = sub("e", "10^", p.value)) %>%  mutate_if(is.numeric, round, 2))
 
-flextable::save_as_docx(kruskal.condition.2, path = "nice_table_kruskal_subst_condition.docx")
+flextable::save_as_docx(kruskal.condition.2, path = "subtratum_reports/growth_14days/kruskal_subst_condition.docx")
 
 ###means condition (plug or  conidia)
 means.condition <- flextable(substratum.inoculum.2 %>% group_by(condition) %>% 
@@ -162,7 +162,7 @@ means.condition <- flextable(substratum.inoculum.2 %>% group_by(condition) %>%
                                          se = sd / sqrt(n),cv= (se/mean)*100 )%>%
                                arrange(desc(mean)) %>% 
                                mutate_if(is.numeric, round, 2))
-flextable::save_as_docx(means.condition, path = "means.condition.docx")
+flextable::save_as_docx(means.condition, path = "subtratum_reports/growth_14days/means_condition.docx")
 
 ####Dunn test by condition (plug or conidia)
 test_dunn <- dunn.test(substratum.inoculum.3$growth_14days , as.factor(substratum.inoculum.3$condition),method = 'bonferroni')
@@ -181,7 +181,7 @@ italy.2 <- italy%>%  mutate(P.adjusted =
   mutate(Z =                 as.character(signif(Z, digits =2)))
 
 italy.3 <- flextable::flextable(italy.2)
-flextable::save_as_docx(italy.3, path = "nice_table_test_dunn_substratum_condition.docx")
+flextable::save_as_docx(italy.3, path = "subtratum_reports/growth_14days/test_dunn_substratum_condition.docx")
 
 
 
@@ -191,7 +191,7 @@ kruskal.media <- tidy(kruskal.test(substratum.inoculum.3$growth_14days  ~ as.fac
 kruskal.media.2 <- flextable::flextable(kruskal.media %>% mutate(p.value =
                                                                                      as.character(signif(p.value, digits =2))) %>%  mutate(p.value = sub("e", "10^", p.value)) %>%  mutate_if(is.numeric, round, 2))
 
-flextable::save_as_docx(kruskal.media.2, path = "nice_table_kruskal_subst_media.docx")
+flextable::save_as_docx(kruskal.media.2, path = "subtratum_reports/growth_14days/kruskal_subst_media.docx")
 
 ###means substratum aka known as "media" to avoid confusions with the original name of the object (sorghum, millet or rice)
 means.substratum <- flextable(substratum.inoculum.2 %>% group_by(substratum) %>% 
@@ -199,7 +199,7 @@ means.substratum <- flextable(substratum.inoculum.2 %>% group_by(substratum) %>%
                                           se = sd / sqrt(n), cv= (se/mean)*100 )%>%
                                 arrange(desc(mean)) %>%
                                 mutate_if(is.numeric, round, 2))
-flextable::save_as_docx(means.substratum, path = "means.substratum.docx")
+flextable::save_as_docx(means.substratum, path = "subtratum_reports/growth_14days/means_substratum.docx")
 
 ####Dunn test by substratum (sorghum, millet or rice)   
 test_dunn <- dunn.test(substratum.inoculum.3$growth_14days , as.factor(substratum.inoculum.3$substratum),method = 'bonferroni')
@@ -217,7 +217,7 @@ spain.2 <- spain%>%  mutate(P.adjusted =
   mutate(Z =                 as.character(signif(Z, digits =2)))
 
 spain.3 <- flextable::flextable(spain.2)
-flextable::save_as_docx(spain.3, path = "nice_table_test_dunn_substratum_media.docx")
+flextable::save_as_docx(spain.3, path = "subtratum_reports/growth_14days/test_dunn_substratum_media.docx")
 
 #testing pathogen (FLS or SBS)
 kruskal.test(substratum.inoculum.3$growth_14days  ~ as.factor( substratum.inoculum.3$pathogen), data= substratum.inoculum.3 )
@@ -225,7 +225,7 @@ kruskal.pathogen <- tidy(kruskal.test(substratum.inoculum.3$growth_14days  ~ as.
 kruskal.pathogen.2 <- flextable::flextable(kruskal.pathogen %>% mutate(p.value =
                                                                                      as.character(signif(p.value, digits =2))) %>%  mutate(p.value = sub("e", "10^", p.value)) %>%  mutate_if(is.numeric, round, 2))
 
-flextable::save_as_docx(kruskal.pathogen.2, path = "nice_table_kruskal_subst_pathogen.docx")
+flextable::save_as_docx(kruskal.pathogen.2, path = "subtratum_reports/growth_14days/kruskal_subst_pathogen.docx")
 
 ###means pathogen (FLS or SBS)
 means.pathogen <- flextable(substratum.inoculum.2 %>% group_by(pathogen) %>% 
@@ -233,7 +233,7 @@ means.pathogen <- flextable(substratum.inoculum.2 %>% group_by(pathogen) %>%
                                          se = sd / sqrt(n), cv= (se/mean)*100) %>%
                                arrange(desc(mean)) %>% 
                                mutate_if(is.numeric, round, 2))
-flextable::save_as_docx(means.pathogen, path = "means.pathogen.docx")
+flextable::save_as_docx(means.pathogen, path = "subtratum_reports/growth_14days/means_pathogen.docx")
 
 ####Dunn test by pathogen  (FLS or SBS) 
 test_dunn.pathogen <- dunn.test(substratum.inoculum.3$growth_14days , as.factor(substratum.inoculum.3$pathogen),method = 'bonferroni')
@@ -252,7 +252,7 @@ france.2 <- france%>%  mutate(P.adjusted =
   mutate(Z =                 as.character(signif(Z, digits =2)))
 
 france.3 <- flextable::flextable(france.2)
-flextable::save_as_docx(france.3, path = "nice_table_test_dunn_substratum_pathogen.docx")
+flextable::save_as_docx(france.3, path = "subtratum_reports/growth_14days/test_dunn_substratum_pathogen.docx")
 
 
 # removing condition susp, reduce/change shortly the name of  each levels and created a new column named "Treatment"  from concatenating: "pathogen, substratum, and condition"
@@ -271,7 +271,7 @@ kruskal <- tidy(kruskal.test(substratum.inoculum.4$growth_14days   ~ as.factor( 
 kruskal.2 <- flextable::flextable(kruskal%>% mutate(p.value =
                                                       as.character(signif(p.value, digits =2))) %>%  mutate(p.value = sub("e", "10^", p.value)) %>%  mutate_if(is.numeric, round, 2))
 
-flextable::save_as_docx(kruskal.2, path = "nice_table_kruskal_subtratum_treatment.docx")
+flextable::save_as_docx(kruskal.2, path = "subtratum_reports/growth_14days/kruskal_subtratum_treatment.docx")
 
 #Dunn test by treatment 
 test_dunn <- dunn.test(substratum.inoculum.4$growth_14days , as.factor(substratum.inoculum.4$treatment),method = 'bonferroni')
@@ -290,7 +290,7 @@ usa.2 <- usa%>%  mutate(P.adjusted =
   mutate(Z =                 as.character(signif(Z, digits =2)))
 
 usa.3 <- flextable::flextable(usa.2)
-flextable::save_as_docx(usa.3, path = "nice_table_test_dunn_subs_treatment.docx")
+flextable::save_as_docx(usa.3, path = "subtratum_reports/growth_14days/test_dunn_subs_treatment.docx")
 
 
 ####means treatment
@@ -299,7 +299,7 @@ means.treatment <- flextable(substratum.inoculum.3.alternative %>% group_by(trea
                                          se = sd / sqrt(n), cv= (se/mean)*100) %>%
                                arrange(desc(mean)) %>% 
                                mutate_if(is.numeric, round, 2))
-flextable::save_as_docx(means.treatment, path = "means.treatment.docx")
+flextable::save_as_docx(means.treatment, path = "subtratum_reports/growth_14days/means_treatment.docx")
 
 #Graph by treatment 
 View(stat.test.subs <- substratum.inoculum.4%>% dunn_test(growth_14days ~ treatment, p.adjust.method = "bonferroni"))

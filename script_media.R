@@ -86,7 +86,7 @@ kruskal.condition <- tidy(kruskal.test(media.fls.3$average_conidia_per_square_he
 kruskal.condition.2 <- flextable::flextable(kruskal.condition %>% mutate(p.value =
                                                       as.character(signif(p.value, digits =2))) %>%  mutate(p.value = sub("e", "10^", p.value)) %>%  mutate_if(is.numeric, round, 2))
 
-flextable::save_as_docx(kruskal.condition.2, path = "nice_table_kruskal_condition.docx")
+flextable::save_as_docx(kruskal.condition.2, path = "media_reports/kruskal_condition.docx")
 
 #summary means condition (light or dark-light)
 
@@ -95,14 +95,14 @@ means.condition <- flextable(media.fls.3 %>% group_by(condition) %>%
                                          se = sd / sqrt(n), cv= cv (average_conidia_per_square_hemocytometer))%>%
                                arrange(desc(mean)) %>% 
                                mutate_if(is.numeric, round, 2))
-flextable::save_as_docx(means.condition, path = "means.condition.docx")
+flextable::save_as_docx(means.condition, path = "media_reports/means_condition.docx")
 
 means.media <- flextable(media.fls.3 %>% group_by(media) %>% 
                                summarize(mean = mean(average_conidia_per_square_hemocytometer, na.rm=TRUE), sd = sd(average_conidia_per_square_hemocytometer, na.rm=TRUE), n = n(),
                                          se = sd / sqrt(n), cv= cv (average_conidia_per_square_hemocytometer))%>%
                                arrange(desc(mean)) %>% 
                                mutate_if(is.numeric, round, 2))
-flextable::save_as_docx(means.media, path = "means.media_fls3.docx")
+flextable::save_as_docx(means.media, path = "media_reports/means_media_fls3.docx")
 
 
 
@@ -213,7 +213,7 @@ summary(cld_output)
 print(cld_output)
 
 cld_output.2 <- flextable::flextable(cld_output)
-flextable::save_as_docx(cld_output.2, path = "pairwise_least_squares_means_tukey.docx")
+flextable::save_as_docx(cld_output.2, path = "media_reports/pairwise_least_squares_means_tukey.docx")
 
 #Plot of interactions
 #Visualize the interaction
