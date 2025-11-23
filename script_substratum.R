@@ -17,7 +17,6 @@ library(officer)
 #library(plyr)
 
 
-
 substratum.inoculum <- read_csv("data/substratum_inoculum_growth_copy.csv") 
 #Reading and removing replicates with ≥ 4 with NA  that means CONTAMINATIONS (4 is half of the total of repeats per experimental unit) 
 substratum.inoculum.2 <- 
